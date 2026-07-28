@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>끝장영어 시작 설명서</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#16181d; --ink-2:#4a5058; --ink-3:#8b929c;
+  --line:#e8eaee; --line-2:#dfe2e7;
+  --bg:#fbfbfc; --card:#fff;
+  --accent:#2b6cb0; --accent-soft:#eef4fb;
+  --hl:#cfe6fa;
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-text-size-adjust:100%}
+body{
+  font-family:'Pretendard',-apple-system,'Apple SD Gothic Neo',sans-serif;
+  background:var(--bg); color:var(--ink);
+  font-size:15px; line-height:1.75; letter-spacing:-.012em;
+}
+.wrap{max-width:600px;margin:0 auto;padding:0 14px 60px}
+
+/* HERO */
+.hero{
+  background:var(--card); border-radius:0 0 26px 26px;
+  border-bottom:1px solid var(--line);
+  padding:56px 26px 34px; margin:0 -14px 16px; text-align:center;
+}
+.badge{
+  display:inline-block;font-size:10px;letter-spacing:.2em;font-weight:700;
+  color:var(--accent);background:var(--accent-soft);padding:5px 11px;border-radius:999px;
+  margin-bottom:18px;
+}
+.hero h1{font-size:32px;font-weight:800;letter-spacing:-.045em;line-height:1.3}
+.hero h1 b{background:linear-gradient(transparent 58%, var(--hl) 58%)}
+.hero .tags{margin-top:16px;font-size:12px;color:var(--ink-3);font-weight:500}
+.hero .lead{margin-top:20px;font-size:14.5px;color:var(--ink-2)}
+
+/* ACCORDION */
+details{
+  background:var(--card);border-radius:16px;margin-bottom:8px;overflow:hidden;
+  border:1px solid var(--line); transition:border-color .2s;
+}
+details[open]{border-color:var(--line-2)}
+summary{
+  list-style:none;cursor:pointer;padding:18px 20px;
+  display:flex;align-items:center;gap:12px;
+  font-size:16px;font-weight:700;letter-spacing:-.03em;
+}
+summary::-webkit-details-marker{display:none}
+summary .idx{
+  width:22px;height:22px;flex:none;border-radius:6px;background:var(--accent-soft);
+  color:var(--accent);font-size:11px;font-weight:800;display:grid;place-items:center;
+}
+summary .ttl{flex:1}
+summary .ttl small{display:block;font-size:11px;font-weight:500;color:var(--ink-3);margin-top:1px;letter-spacing:0}
+summary .chev{
+  flex:none;width:8px;height:8px;border-right:2px solid var(--ink-3);border-bottom:2px solid var(--ink-3);
+  transform:rotate(45deg);transition:transform .25s;margin-right:3px;
+}
+details[open] summary .chev{transform:rotate(-135deg)}
+.body{padding:0 20px 22px;border-top:1px solid var(--line);padding-top:18px;margin:0 20px;padding-left:0;padding-right:0}
+
+h3{
+  font-size:14.5px;font-weight:700;color:var(--ink);letter-spacing:-.02em;
+  margin:24px 0 10px;padding-left:9px;
+  border-left:3px solid var(--accent);line-height:1.5;
+}
+h3:first-child{margin-top:0}
+p{margin-bottom:9px;font-size:14.5px}
+p:last-child{margin-bottom:0}
+.muted{color:var(--ink-3);font-size:12.5px;line-height:1.7}
+mark{background:var(--hl);padding:0 3px;border-radius:2px}
+strong{font-weight:700}
+
+/* SCHEDULE PILLS */
+.rule{
+  background:var(--accent-soft);border-radius:11px;
+  padding:13px 14px;margin-bottom:10px;text-align:center;
+  font-size:14.5px;font-weight:700;color:var(--accent);letter-spacing:-.02em;
+}
+.rule .ar{margin:0 5px;opacity:.55;font-weight:500}
+.egnote{
+  font-size:12.5px;color:var(--ink-3);line-height:1.6;
+  margin:0 2px 10px;padding-left:9px;border-left:2px solid var(--line-2);
+}
+.note-p{
+  font-size:12.5px;color:var(--ink-3);line-height:1.6;margin:12px 0 0;
+}
+.tracks{display:flex;flex-direction:column;gap:8px}
+.trk{background:#fafbfc;border-radius:12px;padding:14px}
+.trk-h{font-size:12px;font-weight:700;color:var(--ink-2);margin-bottom:10px}
+.trk-h em{font-style:normal;color:var(--ink-3);font-weight:600;font-size:10px;letter-spacing:.1em;margin-right:6px}
+.steps{display:flex;gap:5px}
+.st{flex:1;text-align:center}
+.st .w{font-size:9px;color:var(--ink-3);font-weight:700;letter-spacing:.06em;margin-bottom:4px}
+.st .c{background:#fff;border:1px solid var(--line-2);border-radius:8px;padding:7px 2px;font-size:11px;font-weight:700;line-height:1.35}
+.st .t{font-size:9.5px;color:var(--accent);font-weight:600;margin-top:4px;line-height:1.35}
+
+/* DEF */
+.def{padding:12px 0;border-bottom:1px dashed var(--line-2)}
+.def:last-child{border-bottom:0;padding-bottom:0}
+.def dt{font-weight:700;font-size:13.5px;margin-bottom:2px}
+.def dd{color:var(--ink-2);font-size:14px}
+.eg{background:#fafbfc;border-radius:9px;padding:11px 13px;margin-top:8px;font-size:12.5px;color:var(--ink-2);line-height:1.65}
+
+ol.nums{list-style:none;counter-reset:n}
+ol.nums li{counter-increment:n;position:relative;padding-left:24px;margin-bottom:13px;font-size:14.5px}
+ol.nums li:last-child{margin-bottom:0}
+ol.nums li::before{
+  content:counter(n)".";position:absolute;left:0;top:0;
+  font-size:13px;font-weight:800;color:var(--ink-3);
+}
+
+.closing{
+  background:var(--card);border:1px solid var(--line);border-radius:16px;
+  padding:30px 24px;text-align:center;margin-top:16px
+}
+.closing p{font-size:14.5px;color:var(--ink-2);line-height:1.9}
+.hash{display:inline-block;margin-top:20px;font-size:10.5px;color:var(--ink-3);background:var(--bg);padding:5px 11px;border-radius:999px}
+
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+@media(max-width:400px){
+  .hero h1{font-size:27px}
+  .st .c{font-size:10px}
+  .st .t{font-size:9px}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="hero">
+    <span class="badge">WELCOME</span>
+    <h1>끝장영어학원<br><b>신규생 안내서</b></h1>
+    <div class="tags">#낯설면_정상입니다&nbsp;&nbsp;&nbsp;#여기선_이렇게_공부해요</div>
+    <p class="lead">안녕하세요. 끝장영어학원에 온걸 환영합니다!<br>처음엔 낯설 수 있지만, 아래 안내를 읽어두면 훨씬 편해질 거예요 :)</p>
+  </header>
+
+  <details open>
+    <summary><span class="idx">★</span><span class="ttl">먼저 핵심만 정리</span><span class="chev"></span></summary>
+    <div class="body">
+      <div class="rule">수업한 내용을 <span class="ar">→</span> 다음주에 복습 테스트</div>
+      <div class="egnote">월·금반이라면, 이런 흐름이에요</div>
+      <div class="tracks">
+        <div class="trk">
+          <div class="trk-h"><em>MON</em>리딩</div>
+          <div class="steps">
+            <div class="st"><div class="w">1주</div><div class="c">리딩1<br>수업</div><div class="t">(시작)</div></div>
+            <div class="st"><div class="w">2주</div><div class="c">리딩2<br>수업</div><div class="t">리딩1<br>테스트</div></div>
+            <div class="st"><div class="w">3주</div><div class="c">리딩3<br>수업</div><div class="t">리딩2<br>테스트</div></div>
+            <div class="st"><div class="w">4주</div><div class="c">리딩4<br>수업</div><div class="t">리딩3<br>테스트</div></div>
+          </div>
+        </div>
+        <div class="trk">
+          <div class="trk-h"><em>FRI</em>구문</div>
+          <div class="steps">
+            <div class="st"><div class="w">1주</div><div class="c">구문1<br>수업</div><div class="t">(시작)</div></div>
+            <div class="st"><div class="w">2주</div><div class="c">구문2<br>수업</div><div class="t">구문1<br>테스트</div></div>
+            <div class="st"><div class="w">3주</div><div class="c">구문3<br>수업</div><div class="t">구문2<br>테스트</div></div>
+            <div class="st"><div class="w">4주</div><div class="c">구문4<br>수업</div><div class="t">구문3<br>테스트</div></div>
+          </div>
+        </div>
+      </div>
+      <p class="muted" style="margin-top:12px">(※ 등원하는 반과 요일에 따라 조금씩 차이가 있을 수 있습니다.<br>큰 구조만 확인해주세요)</p>
+
+      <h3>테스트 안내</h3>
+      <p>테스트는 평가 목적이 아니라 학습 관리와 복습을 위한 장치</p>
+      <dl>
+        <div class="def"><dt>복습 테스트(Daily Test, DT)를 하는 이유</dt><dd>복습 자료 문제를 풀면서 <mark>문장을 여러 번 읽고 해석하며 반복하여 익히기</mark></dd></div>
+        <div class="def"><dt>단어 테스트</dt><dd>한글 뜻쓰기 2페이지 + “단어 가장 마지막 진도 포함하여 총 여섯 페이지”를 구두테스트
+          <div class="eg">예: 오늘 한글뜻쓰기 시험이 Day 19~20이라면,<br>구두테스트는 20,19,18,17,16,15 이렇게 여섯 페이지가 범위</div></dd></div>
+      </dl>
+
+      <h3>끝장영어의 기본 방향</h3>
+      <p>단순히 설명하고 끝나는 수업이 아니라,<br>이해 → 적용 → 관리 → 반복까지 이어지는 수업</p>
+    </div>
+  </details>
+
+  <details>
+    <summary><span class="idx">1</span><span class="ttl">예습 · 복습 · 숙제 · 검사<small>수업 전후로 해야 할 것</small></span><span class="chev"></span></summary>
+    <div class="body">
+      <h3>수업은 배우는 시간, 테스트는 관리와 점검 시간</h3>
+      <p><mark>(월·화·수)요일은 “리딩” 중심</mark> → {리딩} 예습, {리딩} 복습숙제, {리딩} 테스트 준비</p>
+      <p><mark>(목·금·토)요일은 “구문” 중심</mark> → {구문} 예습, {구문} 복습숙제, {구문} 테스트 준비</p>
+      <p><strong>문법 = 예습 ❌ / 복습(숙제) ⭕ → 수업 전날까지 미리 카톡으로 검사받고 채점하여 등원</strong></p>
+      <p class="note-p">(※ 각 반의 특성에 맞춰 과목 구성은 달라질 수 있음)</p>
+      <h3>숙제 및 테스트 준비: 매주 주말 발송되는 공지 문자 참고</h3>
+      <dl>
+        <div class="def"><dt>예습</dt><dd>새로 수업할 내용을 미리 읽으며 해석해보고, 모르는 단어를 찾아서 정리</dd></div>
+        <div class="def"><dt>복습자료</dt><dd>리딩 · 구문 수업 때 A4용지에 인쇄되어 배부되는 자료 → 이 자료로 복습 테스트를 봅니다.</dd></div>
+        <div class="def"><dt>숙제</dt><dd>지난 시간에 이미 배웠던 내용의 페이지를 복습하고 연습 문제 풀어오기</dd></div>
+        <div class="def"><dt>검사</dt><dd>숙제가 제대로 되었는지 미리 확인하고, 수업을 효율적으로 진행하기 위한 절차</dd></div>
+      </dl>
+    </div>
+  </details>
+
+  <details>
+    <summary><span class="idx">2</span><span class="ttl">출결 및 결석 관련</span><span class="chev"></span></summary>
+    <div class="body">
+      <ol class="nums">
+        <li>등원 시간까지 학생이 등원 하지 않는 경우: 학생 및 학부모님께 등원 중인지 여부 및 위치 확인 문자(카톡)를 발송합니다. 별도의 카톡 안내가 없는 경우 제 시간에 맞춰 등원하여 수업 및 관리타임을 진행하는 것이므로 걱정하지 않으셔도 됩니다 :)</li>
+        <li><strong>결석의 경우, 별도의 보강은 진행하지 않습니다. 대신 수업을 영상 녹화하여 학생에게 제공</strong>하고, 학생은 영상으로 수업을 시청한 뒤 필기 내용으로 검사받습니다. 수업 영상이나 복습자료를 전송받지 못한 경우 원장에게 요청해주세요.</li>
+        <li>결석한 날 예정되어 있던 복습테스트(DT), 단어테스트, 단어 구두테스트는 별도로 실시하지 않는 것을 원칙으로 합니다. 다른 요일에 응시를 희망하는 경우 별도로 요청해주세요.
+          <div class="eg" style="margin-top:9px">단, <strong>단어테스트는 결석한 분량을 건너뛰지 않고 다음 수업으로 이어집니다.</strong><br>(예: 월요일 Day 21~22를 결석 → 금요일에 Day 21~22 응시)<br>따라서 중간 진도가 비는 일 없이 순서대로 응시하게 됩니다.</div>
+        </li>
+      </ol>
+    </div>
+  </details>
+
+  <details>
+    <summary><span class="idx">3</span><span class="ttl">내신 대비 수업<small>중등 내신 4주간, 고등 내신 5주간</small></span><span class="chev"></span></summary>
+    <div class="body">
+      <ol class="nums">
+        <li>내신 대비 동안에는 정규수업(리딩 · 구문 · 문법 등) 과목에 대한 예습은 불필요합니다.</li>
+        <li>내신 대비 수업 기간 동안에는 <mark>바로 전날 수업한 내용에 대한</mark> <strong>변형문제 숙제, 그리고 복습테스트와 단어테스트 준비</strong>를 해와야 합니다. 공지문자를 참고하되, 내신 기간 동안에는 갑작스러운 추가 자료나 변동사항이 잦으므로, 반드시 내신 담당쌤이 안내하고 지정해주는 내용을 잘 참고하여 준비해와야 합니다.</li>
+      </ol>
+    </div>
+  </details>
+
+  <details>
+    <summary><span class="idx">4</span><span class="ttl">수능 대비 수업<small>수능까지 이어지는 커리큘럼</small></span><span class="chev"></span></summary>
+    <div class="body">
+      <ol class="nums">
+        <li><strong>내신 기간을 제외한 대부분의 기간에는 수능 대비를 중심으로 수업을 진행</strong>하며, 장기적인 영어 실력을 꾸준히 쌓아갑니다.</li>
+        <li>각 학년보다 조금 앞선 수준의 모의고사 학습과 구문독해, 수능 유형별 수업을 꾸준히 운영하며, 고3은 9월 모의평가 및 수능 대비 과정으로 마무리합니다.</li>
+      </ol>
+    </div>
+  </details>
+
+  <details>
+    <summary><span class="idx">5</span><span class="ttl">질문하는 법 / 도움 받는 법</span><span class="chev"></span></summary>
+    <div class="body">
+      <ol class="nums">
+        <li>이런 질문은 너무 좋다: “쌤 40번 문제 모르겠어요 😥” → “쌤 40번 문제의 ⑤번 보기에서 remind도 recall과 비슷한 뜻 같은데 안 되는 이유가 궁금해요 ❤️”. 올바른 방법으로 질문하는 것 자체가 중요한 하나의 공부입니다! 답과 근거에 대해서 먼저 충분히 고민하고 공부한 후에 질문해주세요.</li>
+        <li>수업 내용과 가장 직접적으로 관련된 내용일 때: 수업 중에 바로 손을 들고 질문해도 괜찮습니다! 다만 개인 질문이 너무 많아지면 과목 강사가 정해진 진도를 진행하는 데에 어려움이 있을 수 있으니, 그런 경우에는 수업 끝나고 남아서 질문하고 하원, 혹은 카톡으로 질문을 적극 활용해주세요.</li>
+        <li>카톡으로 질문: 질문할 내용을 교재/문제 부분의 사진과 함께 해당 강사 혹은 원장에게 질문해주세요. <strong>답변이 늦을 수 있습니다. 확인되지 않았을 가능성이 크니, 부담 없이 다시 질문해주세요.</strong></li>
+      </ol>
+    </div>
+  </details>
+
+  <details>
+    <summary><span class="idx">6</span><span class="ttl">잘 적응하는 학생들의 공통점</span><span class="chev"></span></summary>
+    <div class="body">
+      <ol class="nums">
+        <li><strong>주말 등을 이용해서 미리미리 예습하고 숙제 준비</strong>: 수업 전날에 닥쳐서 급하게 예습하고 숙제 하려면 다른 일정이 생겨서 숙제에 어려움이 생깁니다. 주말 등을 이용해서 미리미리 준비해주세요!</li>
+        <li><strong>자신의 실력 향상을 위해 공부하는 학생</strong>: 테스트 통과만을 위한 단순 무조건 암기, 예습 대충 해오기는 도움이 되지 않습니다. 자신에게 실질적인 도움이 되도록 공부하는 학생은 실력이 향상됩니다.</li>
+        <li><strong>구문시간이나 문법 시간에 최대한 적극적으로 발표에 참여</strong>: 수업 시간 중의 문장 해석, 문법 문제풀이에 적극 참여해주세요! 자신이 수업을 잘 따라오는지를 스스로 점검할 수 있습니다.</li>
+      </ol>
+    </div>
+  </details>
+
+  <details>
+    <summary><span class="idx">7</span><span class="ttl">추가 단어테스트 신청<small>등원일 외 주 2회 추가 등원 가능</small></span><span class="chev"></span></summary>
+    <div class="body">
+      <p>단어를 단기간에 집중적으로 암기하고 익힐 필요가 있는 학생의 경우, 정규 등원일 외에 <strong>주 2회까지 추가로 등원</strong>하여 단어테스트를 볼 수 있습니다. 정규 등원일을 포함하면 <strong>주 4회까지</strong> 단어테스트가 가능합니다.</p>
+      <p class="eg" style="margin-top:9px">예: 월·금반 학생이 수·토 추가 신청 → 월·수·금·토 총 4회 단어테스트</p>
+      <p style="margin-top:9px">필요한 경우 원장에게 신청해주세요.</p>
+    </div>
+  </details>
+
+  <div class="closing">
+    <p>조금 느리고 뒤처져도 괜찮아요.<br>수업의 난이도나 테스트 통과가 많이 버거운 경우,<br>원장이나 담당 강사와 함께 숙제 분량 등을 점검하여<br>조정할 수 있는 부분이 있는지를 체크 요청해주세요.</p>
+    <span class="hash">#끝장영어_시작_설명서/공통</span>
+  </div>
+
+</div>
+</body>
+</html>
