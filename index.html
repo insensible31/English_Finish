@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>끝장영어학원 등원일</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#f4f4f2; --card:#ffffff;
+    --ink:#2c2c2a; --ink-soft:#6b6b66; --ink-faint:#a8a8a2;
+    --line:#e3e3df; --line-soft:#eeeeeb;
+    --up-bg:#dbe4d4; --up-border:#aec5a2;
+    --normal-bg:#a9d5f0; --normal-border:#6fb4e0;
+    --makeup-bg:#cfeafa; --makeup-border:#93cdee;
+    --normal-past-bg:#e6ebef; --normal-past-border:#cdd6dd;
+    --makeup-past-bg:#eaeef1; --makeup-past-border:#d3dade;
+    --past-blue-ink:#98a1a8;
+    --wait-bg:#eeecf2; --wait-border:#cbc6d3; --wait-ink:#807b88;
+    --exam-border:#3a3a36;
+    --today-bg:#f6d3ad; --today-border:#e0a763; --today-ink:#7a4a12;
+  }
+  *{ box-sizing:border-box; margin:0; padding:0; }
+  body{ font-family:'Noto Sans KR',-apple-system,sans-serif; background:var(--bg); color:var(--ink); padding:28px 20px 48px; -webkit-font-smoothing:antialiased; }
+  .wrap{ max-width:1080px; margin:0 auto; }
+  .policy{ margin-bottom:20px; background:#fafafa; border:1px solid var(--line-soft); border-radius:10px; overflow:hidden; }
+  .policy summary{ cursor:pointer; padding:10px 14px; font-size:13px; color:var(--ink-soft); list-style:none; display:flex; align-items:center; gap:7px; }
+  .policy summary::-webkit-details-marker{ display:none; }
+  .policy summary .more{ margin-left:auto; font-size:12px; color:var(--ink-faint); }
+  .policy .body{ padding:2px 16px 14px 37px; font-size:13px; color:var(--ink-soft); line-height:1.75; }
+  .policy .body b{ color:var(--ink); font-weight:500; }
+  .head{ display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:10px; margin-bottom:18px; }
+  .title{ font-size:22px; font-weight:700; letter-spacing:-0.3px; }
+  .title small{ font-size:13px; font-weight:400; color:var(--ink-soft); margin-left:8px; }
+  .legend{ display:flex; align-items:center; flex-wrap:wrap; gap:16px; font-size:12px; color:var(--ink-soft); margin-bottom:22px; }
+  .legend span{ display:inline-flex; align-items:center; gap:6px; }
+  .dot{ width:11px; height:11px; border-radius:3px; display:inline-block; }
+  .month{ margin-bottom:30px; }
+  .month-head{ display:flex; align-items:center; gap:10px; margin-bottom:13px; padding-bottom:9px; border-bottom:2px solid var(--ink); }
+  .month-title{ font-size:17px; font-weight:700; }
+  .month-badge{ font-size:12px; font-weight:500; padding:3px 10px; border-radius:20px; }
+  .badge-now{ background:var(--ink); color:#fff; }
+  .badge-wait{ background:var(--wait-bg); color:var(--wait-ink); border:1px solid var(--wait-border); }
+  .cards{ display:grid; grid-template-columns:repeat(auto-fit,minmax(320px,1fr)); gap:14px; }
+  .card{ background:var(--card); border:1px solid var(--line); border-radius:14px; overflow:hidden; }
+  .card-head{ display:flex; align-items:center; justify-content:space-between; padding:13px 16px; border-bottom:1px solid var(--line-soft); background:#fafafa; }
+  .card-name{ font-size:15px; font-weight:700; }
+  .card-meta{ display:flex; align-items:center; gap:6px; }
+  .card-day{ font-size:12px; color:var(--ink-soft); background:var(--bg); padding:3px 10px; border-radius:7px; border:1px solid var(--line); }
+  .card-note{ font-size:11px; color:var(--ink-faint); }
+  .chips{ display:flex; flex-wrap:wrap; gap:7px; padding:15px 16px; }
+  .chip{ display:inline-block; padding:6px 11px; border-radius:8px; font-size:13px; font-weight:500; white-space:nowrap; line-height:1.2; }
+  .chip.pre{ background:var(--bg); color:var(--ink-soft); font-weight:400; }
+  .chip.past{ background:transparent; color:var(--ink-faint); border:1px solid var(--line); font-weight:400; }
+  .chip.up{ background:var(--up-bg); color:var(--ink); border:1px solid var(--up-border); }
+  .chip.normal{ background:var(--normal-bg); color:var(--ink); border:1px solid var(--normal-border); }
+  .chip.makeup{ background:var(--makeup-bg); color:var(--ink); border:1px solid var(--makeup-border); }
+  .chip.normal-past{ background:var(--normal-past-bg); color:var(--past-blue-ink); border:1px solid var(--normal-past-border); font-weight:400; }
+  .chip.makeup-past{ background:var(--makeup-past-bg); color:var(--past-blue-ink); border:1px solid var(--makeup-past-border); font-weight:400; }
+  .chip.wait{ background:var(--wait-bg); color:var(--wait-ink); border:1px dashed var(--wait-border); }
+  .chip.today{ background:var(--today-bg); color:var(--today-ink); border:1px solid var(--today-border); font-weight:500; }
+  .chip.exam{ border:1.5px solid var(--exam-border); }
+  .chip .star{ font-size:11px; margin-right:2px; }
+  .notes{ margin-top:12px; padding:12px 16px; background:#fafafa; border:1px solid var(--line-soft); border-radius:10px; font-size:13px; color:var(--ink-soft); line-height:1.7; }
+  .notes b{ color:var(--ink); font-weight:500; }
+  .foot{ margin-top:8px; font-size:12px; color:var(--ink-faint); text-align:center; }
+  @media (max-width:480px){ .cards{ grid-template-columns:1fr; } body{ padding:20px 14px 36px; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="head">
+    <div class="title">📅 끝장영어학원 등원일 <small id="basis"></small></div>
+  </div>
+
+  <details class="policy">
+    <summary>
+      <i class="ti ti-info-circle" style="font-size:16px;" aria-hidden="true"></i>
+      <span>수업 운영 기준 안내</span>
+      <span class="more">펼쳐보기</span>
+    </summary>
+    <div class="body">
+      각 반은 <b>월 8회 수업</b>을 기본으로 운영합니다. 달의 요일 수·공휴일에 따라 수업일이 남거나 부족할 수 있습니다.<br>
+      · <b>남는 경우</b> — 9회차는 학원 일정에 따라 휴강될 수 있습니다.<br>
+      · <b>부족한 경우</b> — 앞뒤 달 조정 또는 보강으로 월 8회 기준을 맞춥니다.<br>
+      · <b>보강·정상수업 시간</b>은 최대한 많은 학생이 등원할 수 있는 시간대로 정하며, 부득이한 경우 영상 녹화 수업으로 대체됩니다.<br>
+      · <b>내신 대비 일정</b>은 계획 기준이며, 각 학교 지필고사 일정 확정 후 조정될 수 있습니다.
+    </div>
+  </details>
+
+  <div class="legend">
+    <span><span class="dot" style="background:var(--up-bg);border:1px solid var(--up-border);"></span>다가올 수업</span>
+    <span><span class="dot" style="background:transparent;border:1px solid var(--line);"></span>지난 수업</span>
+    <span><span class="dot" style="background:var(--today-bg);border:1px solid var(--today-border);"></span>오늘 수업</span>
+    <span><span class="dot" style="background:var(--normal-bg);border:1px solid var(--normal-border);"></span>정상수업</span>
+    <span><span class="dot" style="background:var(--makeup-bg);border:1px solid var(--makeup-border);"></span>보강</span>
+    <span><span class="dot" style="background:transparent;border:1.5px solid var(--exam-border);"></span>내신 대비</span>
+    <span><span class="dot" style="background:var(--wait-bg);border:1px dashed var(--wait-border);"></span>다음 달(대기)</span>
+  </div>
+
+  <div id="months"></div>
+  <div class="foot" id="foot"></div>
+</div>
+
+<script>
+/* =========================================================
+   ▼▼▼ 여기만 수정 (반 데이터 + 특이사항) ▼▼▼
+   - months: { month, label, groups:[...], notes:"" }
+   - group: { name, day, note?(반별 작은 메모), dates:[...] }
+   - 날짜 "M/D". 괄호 설명 자유.
+   - "★" 시작 → 직전보강(2px 진회색 내신 테두리)
+   - "정상" 포함 → 정상수업(진한 하늘) / "보강" 포함 → 보강(연한 하늘)
+   - 날짜 뒤 "@" → 내신 대비 테두리 추가 (예: "7/6@")
+   ========================================================= */
+const YEAR = 2026;
+const months = [
+  {
+    month: 7, label: "7월",
+    groups: [
+      { name:"하늘빛2A반", day:"월금", dates:["6/29@","★직전보강","7/3(정상)","7/6","7/10","7/13","7/20","7/31"] },
+      { name:"하늘빛2B반", day:"월금", dates:["6/29@","★직전보강","7/3(정상)","7/6","7/10","7/13","7/20","7/31"] },
+      { name:"제일고1 월금", day:"월금", dates:["★직전보강","7/6","7/10","7/13","7/17(정상)","7/20","7/31","8/3"] },
+      { name:"제일고2 월금", day:"월금", dates:["★직전보강","7/6","7/10","7/13","7/17(정상)","7/20","7/31","8/3"] },
+      { name:"하늘빛3반",   day:"화목", dates:["★직전보강","7/7","7/9","7/14","7/16","7/17(금)보강","7/21","7/30"] },
+      { name:"제일고1 화목", day:"화목", dates:["★직전보강","7/7","7/9","7/14","7/16","7/17(금)보강","7/21","7/30"] },
+      { name:"제일고1 심화", day:"화목", dates:["★직전보강","7/7","7/9","7/14","7/16","7/17(금)보강","7/21","7/30"] },
+      { name:"제일고3반",   day:"토",   dates:["★직전보강","7/11","7/18","⚠️7/22(수)보강","8/1"] },
+      { name:"운양고1반",   day:"수토", dates:["7/1","7/8","7/11","7/15","7/18","7/22","7/29","8/1"] },
+      { name:"제일고2 수토", day:"수토", dates:["★직전보강","7/8","7/11","7/15","7/18","7/22","7/29","8/1"] },
+    ],
+    notes: "<b>7/23(목)~7/28(화)</b> 여름방학 휴강입니다. <b>7/17(제헌절)</b>은 정상수업·보강으로 진행해 수업일수를 맞춥니다."
+  },
+  {
+    month: 8, label: "8월",
+    groups: [
+      { name:"하늘빛2A반", day:"월금", note:"8/17 공휴일", dates:["8/3","8/7","8/10","8/14","8/21","8/24","8/28","8/31"] },
+      { name:"하늘빛2B반", day:"월금", note:"8/17 공휴일", dates:["8/3","8/7","8/10","8/14","8/21","8/24","8/28","8/31"] },
+      { name:"제일고1 월금", day:"월금", dates:["8/7","8/10","8/14","8/17(정상)","8/21","8/24","8/28","8/31"] },
+      { name:"제일고2 월금", day:"월금", dates:["8/7","8/10","8/14","8/17(정상)","8/21","8/24","8/28","8/31"] },
+      { name:"하늘빛3반",   day:"화목", dates:["8/4","8/6","8/11","8/13","8/18","8/20","8/25","8/27"] },
+      { name:"제일고1 화목", day:"화목", dates:["8/4","8/6","8/11","8/13","8/18","8/20","8/25","8/27"] },
+      { name:"제일고1 심화", day:"화목", dates:["8/4","8/6","8/11","8/13","8/18","8/20","8/25","8/27"] },
+      { name:"제일고3반",   day:"토",   dates:["8/8","8/15(정상)","8/22","8/29"] },
+      { name:"운양고1반",   day:"수토", dates:["8/5","8/8","8/12","8/15(정상)","8/19","8/22","8/26","8/29"] },
+      { name:"제일고2 수토", day:"수토", dates:["8/5","8/8","8/12","8/15(정상)","8/19","8/22","8/26","8/29"] },
+    ],
+    notes: "9월 추석 연휴로 수업일이 부족해, <b>8/15·8/17 등 공휴일</b>에도 정상수업이 진행되는 날이 있습니다."
+  },
+];
+/* ▲▲▲ 수정 끝 ▲▲▲ */
+
+const now = new Date();
+const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+document.getElementById("basis").textContent = "(오늘 " + (now.getMonth()+1) + "/" + now.getDate() + " 기준)";
+
+function parseDate(s){ const m=s.match(/(\d{1,2})\/(\d{1,2})/); if(!m) return null; return new Date(YEAR, parseInt(m[1],10)-1, parseInt(m[2],10)); }
+function isWaitingMonth(mn){ return today < new Date(YEAR, mn-1, 1); }
+
+function renderGroup(g, waiting){
+  const chips = g.dates.map(raw => {
+    const isExam = raw.includes("@") || raw.includes("★");
+    const clean = raw.replace("@","");
+    const isPre = clean.includes("★");
+    const isNormal = !isPre && clean.includes("정상");
+    const isMakeup = !isPre && !isNormal && clean.includes("보강");
+    const label = clean.replace("★","");
+    const dt = parseDate(clean);
+    const isPast = dt && dt < today;
+    const isToday = dt && dt.getTime() === today.getTime();
+    const examCls = isExam ? " exam" : "";
+
+    if(isPre)    return '<span class="chip pre'+examCls+'"><span class="star">★</span>직전보강</span>';
+    if(isToday && !waiting) return '<span class="chip today'+examCls+'">'+label+'</span>';
+    if(isNormal) return '<span class="chip '+(isPast?"normal-past":"normal")+examCls+'">'+label+'</span>';
+    if(isMakeup) return '<span class="chip '+(isPast?"makeup-past":"makeup")+examCls+'">'+label+'</span>';
+    if(waiting)  return '<span class="chip wait'+examCls+'">'+label+'</span>';
+    if(isPast)   return '<span class="chip past'+examCls+'">'+label+'</span>';
+    return '<span class="chip up'+examCls+'">'+label+'</span>';
+  }).join("");
+
+  const note = g.note ? '<span class="card-note">'+g.note+'</span>' : '';
+  return '<div class="card"><div class="card-head"><span class="card-name">'+g.name+'</span>'
+    + '<span class="card-meta">'+note+'<span class="card-day">'+g.day+'</span></span></div>'
+    + '<div class="chips">'+chips+'</div></div>';
+}
+
+const html = months.map(mo => {
+  const waiting = isWaitingMonth(mo.month);
+  const badge = waiting ? '<span class="month-badge badge-wait">시작 전 · 대기</span>' : '<span class="month-badge badge-now">진행 중</span>';
+  const cards = mo.groups.map(g => renderGroup(g, waiting)).join("");
+  const notes = mo.notes && mo.notes.trim() ? '<div class="notes">📌 '+mo.notes+'</div>' : '';
+  return '<div class="month"><div class="month-head"><span class="month-title">'+mo.label+'</span>'+badge+'</div><div class="cards">'+cards+'</div>'+notes+'</div>';
+}).join("");
+
+document.getElementById("months").innerHTML = html;
+const fmt = now.getFullYear()+"."+String(now.getMonth()+1).padStart(2,"0")+"."+String(now.getDate()).padStart(2,"0");
+document.getElementById("foot").textContent = "끝장영어학원 · 열람일 " + fmt + " · 색은 열람 시점 기준으로 자동 갱신됩니다";
+</script>
+</body>
+</html>
