@@ -34,14 +34,13 @@
   .head{ display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:10px; margin-bottom:18px; }
   .title{ font-size:22px; font-weight:700; letter-spacing:-0.3px; }
   .title small{ font-size:13px; font-weight:400; color:var(--ink-soft); margin-left:8px; }
-  .legend{ display:flex; align-items:center; flex-wrap:wrap; gap:16px; font-size:12px; color:var(--ink-soft); margin-bottom:22px; }
-  .legend span{ display:inline-flex; align-items:center; gap:6px; }
-  .dot{ width:11px; height:11px; border-radius:3px; display:inline-block; }
+  .legend{ display:flex; align-items:center; flex-wrap:wrap; gap:6px 13px; font-size:11.5px; color:var(--ink-soft); flex:1 1 340px; justify-content:flex-end; }
+  .legend span{ display:inline-flex; align-items:center; gap:5px; white-space:nowrap; }
+  .dot{ width:10px; height:10px; border-radius:3px; display:inline-block; flex:none; }
   .month{ margin-bottom:30px; }
-  .month-head{ display:flex; align-items:center; gap:10px; margin-bottom:13px; padding-bottom:9px; border-bottom:2px solid var(--ink); }
+  .month-head{ display:flex; align-items:center; flex-wrap:wrap; gap:7px 12px; margin-bottom:13px; padding-bottom:9px; border-bottom:2px solid var(--ink); }
   .month-title{ font-size:17px; font-weight:700; }
   .month-badge{ font-size:12px; font-weight:500; padding:3px 10px; border-radius:20px; }
-  .badge-now{ background:var(--ink); color:#fff; }
   .badge-wait{ background:var(--wait-bg); color:var(--wait-ink); border:1px solid var(--wait-border); }
   .cards{ display:grid; grid-template-columns:repeat(auto-fit,minmax(320px,1fr)); gap:14px; }
   .card{ background:var(--card); border:1px solid var(--line); border-radius:14px; overflow:hidden; }
@@ -53,6 +52,7 @@
   .chips{ display:flex; flex-wrap:wrap; gap:7px; padding:15px 16px; }
   .chip{ display:inline-block; padding:6px 11px; border-radius:8px; font-size:13px; font-weight:500; white-space:nowrap; line-height:1.2; }
   .chip.pre{ background:var(--bg); color:var(--ink-soft); font-weight:400; }
+  .chip.tbd{ background:var(--makeup-bg); color:var(--ink); border:1px dashed var(--makeup-border); font-weight:400; }
   .chip.past{ background:transparent; color:var(--ink-faint); border:1px solid var(--line); font-weight:400; }
   .chip.up{ background:var(--up-bg); color:var(--ink); border:1px solid var(--up-border); }
   .chip.normal{ background:var(--normal-bg); color:var(--ink); border:1px solid var(--normal-border); }
@@ -63,9 +63,11 @@
   .chip.today{ background:var(--today-bg); color:var(--today-ink); border:1px solid var(--today-border); font-weight:500; }
   .chip.exam{ border:1.5px solid var(--exam-border); }
   .chip .star{ font-size:11px; margin-right:2px; }
+  .chip .sub{ font-size:11px; opacity:0.72; margin-left:3px; }
   .notes{ margin-top:12px; padding:12px 16px; background:#fafafa; border:1px solid var(--line-soft); border-radius:10px; font-size:13px; color:var(--ink-soft); line-height:1.7; }
   .notes b{ color:var(--ink); font-weight:500; }
   .foot{ margin-top:8px; font-size:12px; color:var(--ink-faint); text-align:center; }
+  @media (max-width:640px){ .legend{ justify-content:flex-start; } }
   @media (max-width:480px){ .cards{ grid-template-columns:1fr; } body{ padding:20px 14px 36px; } }
 </style>
 </head>
@@ -73,7 +75,7 @@
 <div class="wrap">
 
   <div class="head">
-    <div class="title">끝장영어학원 등원일 <small id="basis"></small></div>
+    <div class="title">📅 끝장영어학원 등원일 <small id="basis"></small></div>
   </div>
 
   <details class="policy">
@@ -91,16 +93,6 @@
     </div>
   </details>
 
-  <div class="legend">
-    <span><span class="dot" style="background:var(--up-bg);border:1px solid var(--up-border);"></span>다가올 수업</span>
-    <span><span class="dot" style="background:transparent;border:1px solid var(--line);"></span>지난 수업</span>
-    <span><span class="dot" style="background:var(--today-bg);border:1px solid var(--today-border);"></span>오늘 수업</span>
-    <span><span class="dot" style="background:var(--normal-bg);border:1px solid var(--normal-border);"></span>정상수업</span>
-    <span><span class="dot" style="background:var(--makeup-bg);border:1px solid var(--makeup-border);"></span>보강</span>
-    <span><span class="dot" style="background:transparent;border:1.5px solid var(--exam-border);"></span>내신 대비</span>
-    <span><span class="dot" style="background:var(--wait-bg);border:1px dashed var(--wait-border);"></span>다음 달(대기)</span>
-  </div>
-
   <div id="months"></div>
   <div class="foot" id="foot"></div>
 </div>
@@ -111,44 +103,72 @@
    - months: { month, label, groups:[...], notes:"" }
    - group: { name, day, note?(반별 작은 메모), dates:[...] }
    - 날짜 "M/D". 괄호 설명 자유.
-   - "★" 시작 → 직전보강(2px 진회색 내신 테두리)
-   - "정상" 포함 → 정상수업(진한 하늘) / "보강" 포함 → 보강(연한 하늘)
-   - 날짜 뒤 "@" → 내신 대비 테두리 추가 (예: "7/6@")
+   - "★직전보강"  → 직전보강 칩 (내신 테두리 자동)
+   - "★보강"      → 날짜 미정 보강 칩 (점선 하늘색)
+   - "정상" 포함  → 정상수업(진한 하늘) / "보강" 포함 → 보강(연한 하늘)
+   - 날짜 뒤 "@"  → 내신 대비 테두리 추가 (예: "11/16@")
    ========================================================= */
 const YEAR = 2026;
 const months = [
   {
-    month: 7, label: "7월",
+    month: 10, label: "10월",
     groups: [
-      { name:"하늘빛2A반", day:"월금", dates:["6/29@","★직전보강","7/3(정상)","7/6","7/10","7/13","7/20","7/31"] },
-      { name:"하늘빛2B반", day:"월금", dates:["6/29@","★직전보강","7/3(정상)","7/6","7/10","7/13","7/20","7/31"] },
-      { name:"제일고1 월금", day:"월금", dates:["★직전보강","7/6","7/10","7/13","7/17(정상)","7/20","7/31","8/3"] },
-      { name:"제일고2 월금", day:"월금", dates:["★직전보강","7/6","7/10","7/13","7/17(정상)","7/20","7/31","8/3"] },
-      { name:"하늘빛3반",   day:"화목", dates:["★직전보강","7/7","7/9","7/14","7/16","7/17(금)보강","7/21","7/30"] },
-      { name:"제일고1 화목", day:"화목", dates:["★직전보강","7/7","7/9","7/14","7/16","7/17(금)보강","7/21","7/30"] },
-      { name:"제일고3반",   day:"토",   dates:["★직전보강","7/11","7/18","7/29(수)보강","8/1"] },
-      { name:"운양고1반",   day:"수토", dates:["7/1","7/8","7/11","7/15","7/18","7/22","7/29","8/1"] },
-      { name:"제일고2 수토", day:"수토", dates:["★직전보강","7/8","7/11","7/15","7/18","7/22","7/29","8/1"] },
+      { name:"하늘빛2A반",  day:"월금", dates:["10/9(정상수업)","10/12","10/16","10/19","10/23","10/26","10/30","11/2"] },
+      { name:"하늘빛2B반",  day:"월금", dates:["10/9(정상수업)","10/12","10/16","10/19","10/23","10/26","10/30","11/2"] },
+      { name:"제일고1 월금", day:"월금", dates:["10/9(정상수업)","10/12","10/16","10/19","10/23","10/26","10/30","11/2@"] },
+      { name:"제일고2 월금", day:"월금", dates:["10/9(정상수업)","10/12","10/16","10/19","10/23","10/26","10/30","11/2@"] },
+      { name:"하늘빛3반",   day:"화목", note:"10/29 무료수업", dates:["10/1","10/6","10/8","10/13","10/15","10/20@","10/22@","10/27@"] },
+      { name:"제일고1 화목", day:"화목", note:"10/29 무료수업", dates:["★직전보강","10/6","10/8","10/13","10/15","10/20","10/22","10/27"] },
+      { name:"제일고1 심화", day:"화목", dates:["★직전보강","10/6","10/8","10/13","10/15","10/20","10/22","10/27"] },
+      { name:"제일고3반",   day:"토",   dates:["10/10","10/17","10/24","10/31"] },
+      { name:"운양고1반",   day:"수토", note:"10/28 운양고1 수련회", dates:["★직전보강","10/7","10/10","10/14","10/17","10/21","10/24","10/31"] },
+      { name:"제일고2 수토", day:"수토", note:"10/31 무료수업", dates:["★직전보강","10/7","10/10","10/14","10/17","10/21","10/24","10/28"] },
     ],
-    notes: "<b>7/23(목)~7/28(화)</b> 여름방학 휴강입니다. <b>7/17(제헌절)</b>은 정상수업·보강으로 진행해 수업일수를 맞춥니다."
+    notes: "<b>10/9(한글날)</b>은 정상수업으로 진행해 수업일수를 맞춥니다. <b>운양고 1학년</b>은 <b>10/26(월)~10/28(수)</b> 수련회로 해당 주 일정이 조정됩니다."
   },
   {
-    month: 8, label: "8월",
+    month: 11, label: "11월",
     groups: [
-      { name:"하늘빛2A반", day:"월금", note:"8/17 공휴일", dates:["8/3","8/7","8/10","8/14","8/21","8/24","8/28","8/31"] },
-      { name:"하늘빛2B반", day:"월금", note:"8/17 공휴일", dates:["8/3","8/7","8/10","8/14","8/21","8/24","8/28","8/31"] },
-      { name:"제일고1 월금", day:"월금", dates:["8/7","8/10","8/14","8/17(정상)","8/21","8/24","8/28","8/31"] },
-      { name:"제일고2 월금", day:"월금", dates:["8/7","8/10","8/14","8/17(정상)","8/21","8/24","8/28","8/31"] },
-      { name:"하늘빛3반",   day:"화목", dates:["8/4","8/6","8/11","8/13","8/18","8/20","8/25","8/27"] },
-      { name:"제일고1 화목", day:"화목", dates:["8/4","8/6","8/11","8/13","8/18","8/20","8/25","8/27"] },
-      { name:"제일고3반",   day:"토",   dates:["8/8","8/15(정상)","8/22","8/29"] },
-      { name:"운양고1반",   day:"수토", dates:["8/5","8/8","8/12","8/15(정상)","8/19","8/22","8/26","8/29"] },
-      { name:"제일고2 수토", day:"수토", dates:["8/5","8/8","8/12","8/15(정상)","8/19","8/22","8/26","8/29"] },
+      { name:"하늘빛2A반",  day:"월금", dates:["11/6","11/9","11/13","11/16@","11/20@","11/23@","11/27@","11/30@"] },
+      { name:"하늘빛2B반",  day:"월금", dates:["11/6","11/9","11/13","11/16@","11/20@","11/23@","11/27@","11/30@"] },
+      { name:"제일고1 월금", day:"월금", dates:["11/6@","11/9@","11/13@","11/16@","11/20@","11/23@","11/27@","11/30@"] },
+      { name:"제일고2 월금", day:"월금", dates:["11/6@","11/9@","11/13@","11/16@","11/20@","11/23@","11/27@","11/30@"] },
+      { name:"하늘빛3반",   day:"화목", note:"12/1부터 예비고1 과정", dates:["11/3@","11/5@","11/10@","★직전보강","11/19","11/24","11/26","12/1"] },
+      { name:"제일고1 화목", day:"화목", dates:["11/3@","11/5@","11/10@","11/12@","11/17@","11/19@","11/24@","11/26@","★보강@"] },
+      { name:"제일고1 심화", day:"화목", dates:["11/3@","11/5@","11/10@","11/12@","11/17@","11/19@","11/24@","11/26@","★보강@"] },
+      { name:"운양고1반",   day:"수토", dates:["11/4@","11/7@","11/11@","11/14@","11/18@","11/21@","11/25@","11/28@"] },
+      { name:"제일고2 수토", day:"수토", dates:["11/4@","11/7@","11/11@","11/14@","11/18@","11/21@","11/25@","11/28@"] },
     ],
-    notes: "9월 추석 연휴로 수업일이 부족해, <b>8/15·8/17 등 공휴일</b>에도 정상수업이 진행되는 날이 있습니다."
+    notes: "중3은 매년 기말고사 일정이 빨라, <b>12/1(화) 수업부터 ‘예비고1 과정’</b>으로 통합해 진행합니다.<br>· 하늘빛중 — 3학년 기말 <b>11/13~11/17</b> · 1·2학년 기말 <b>12/14~12/16</b><br>· 제일고 기말 <b>12/7~12/11</b> · 운양고 기말 <b>12/9~12/16</b>"
+  },
+  {
+    month: 12, label: "12월",
+    groups: [
+      { name:"하늘빛2A반",  day:"월금", note:"12/25·1/1 수업 없음", dates:["12/4@","12/7@","12/11@","★직전보강","12/18","12/21","★보강","12/28"] },
+      { name:"하늘빛2B반",  day:"월금", note:"12/25·1/1 수업 없음", dates:["12/4@","12/7@","12/11@","★직전보강","12/18","12/21","★보강","12/28"] },
+      { name:"제일고1 월금", day:"월금", note:"12/25·1/1 수업 없음", dates:["12/4@","★보강@","★직전보강","12/14","12/18","12/21","★보강","12/28"] },
+      { name:"제일고2 월금", day:"월금", note:"12/25·1/1 수업 없음", dates:["12/4@","★보강@","★직전보강","12/14","12/18","12/21","★보강","12/28"] },
+      { name:"예비고1반",   day:"화목", note:"12/31 수업 없음", dates:["12/3","12/8","12/10","12/15","12/17","12/22","12/24","12/29"] },
+      { name:"제일고1 화목", day:"화목", note:"12/31 수업 없음", dates:["12/1@","12/3@","★직전보강","12/15","12/17","12/22","12/24","12/29"] },
+      { name:"제일고1 심화", day:"화목", note:"12/31 수업 없음", dates:["12/1@","12/3@","★직전보강","12/15","12/17","12/22","12/24","12/29"] },
+      { name:"운양고1반",   day:"수토", dates:["12/2@","12/5@","★보강@","★직전보강","12/19","12/23","12/26","12/30"] },
+      { name:"제일고2 수토", day:"수토", dates:["12/2@","12/5@","★직전보강","12/16","12/19","12/23","12/26","12/30"] },
+    ],
+    notes: "12월은 학교 시험 일정과 성탄절·신정이 겹쳐 수업일이 부족한 달입니다. <b>고1·고2</b>는 보강을 가급적 <b>내신 기간</b>에 배치해 동형모의고사·해설강의로 수업일을 대체하고, <b>중등부</b>는 내신 종료 후 별도로 보강을 잡습니다. 세부 일정은 학교별 영어 시험 요일에 따라 미세 조정될 수 있습니다."
   },
 ];
 /* ▲▲▲ 수정 끝 ▲▲▲ */
+
+const LEGEND = '<div class="legend">'
+  + '<span><span class="dot" style="background:var(--up-bg);border:1px solid var(--up-border);"></span>다가올 수업</span>'
+  + '<span><span class="dot" style="background:transparent;border:1px solid var(--line);"></span>지난 수업</span>'
+  + '<span><span class="dot" style="background:var(--today-bg);border:1px solid var(--today-border);"></span>오늘 수업</span>'
+  + '<span><span class="dot" style="background:var(--normal-bg);border:1px solid var(--normal-border);"></span>정상수업</span>'
+  + '<span><span class="dot" style="background:var(--makeup-bg);border:1px solid var(--makeup-border);"></span>보강</span>'
+  + '<span><span class="dot" style="background:var(--makeup-bg);border:1px dashed var(--makeup-border);"></span>보강(날짜 미정)</span>'
+  + '<span><span class="dot" style="background:transparent;border:1.5px solid var(--exam-border);"></span>내신 대비</span>'
+  + '<span><span class="dot" style="background:var(--wait-bg);border:1px dashed var(--wait-border);"></span>다음 달(대기)</span>'
+  + '</div>';
 
 const now = new Date();
 const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
@@ -159,11 +179,12 @@ function isWaitingMonth(mn){ return today < new Date(YEAR, mn-1, 1); }
 
 function renderGroup(g, waiting){
   const chips = g.dates.map(raw => {
-    const isExam = raw.includes("@") || raw.includes("★");
     const clean = raw.replace("@","");
-    const isPre = clean.includes("★");
-    const isNormal = !isPre && clean.includes("정상");
-    const isMakeup = !isPre && !isNormal && clean.includes("보강");
+    const isPre = clean.indexOf("★직전보강") === 0;
+    const isTbd = !isPre && clean.indexOf("★보강") === 0;
+    const isExam = raw.includes("@") || isPre;
+    const isNormal = !isPre && !isTbd && clean.includes("정상");
+    const isMakeup = !isPre && !isTbd && !isNormal && clean.includes("보강");
     const label = clean.replace("★","");
     const dt = parseDate(clean);
     const isPast = dt && dt < today;
@@ -171,6 +192,7 @@ function renderGroup(g, waiting){
     const examCls = isExam ? " exam" : "";
 
     if(isPre)    return '<span class="chip pre'+examCls+'"><span class="star">★</span>직전보강</span>';
+    if(isTbd)    return '<span class="chip tbd'+examCls+'"><span class="star">★</span>보강<span class="sub">날짜 미정</span></span>';
     if(isToday && !waiting) return '<span class="chip today'+examCls+'">'+label+'</span>';
     if(isNormal) return '<span class="chip '+(isPast?"normal-past":"normal")+examCls+'">'+label+'</span>';
     if(isMakeup) return '<span class="chip '+(isPast?"makeup-past":"makeup")+examCls+'">'+label+'</span>';
@@ -187,10 +209,10 @@ function renderGroup(g, waiting){
 
 const html = months.map(mo => {
   const waiting = isWaitingMonth(mo.month);
-  const badge = waiting ? '<span class="month-badge badge-wait">시작 전 · 대기</span>' : '<span class="month-badge badge-now">진행 중</span>';
+  const badge = waiting ? '<span class="month-badge badge-wait">시작 전 · 대기</span>' : '';
   const cards = mo.groups.map(g => renderGroup(g, waiting)).join("");
   const notes = mo.notes && mo.notes.trim() ? '<div class="notes">📌 '+mo.notes+'</div>' : '';
-  return '<div class="month"><div class="month-head"><span class="month-title">'+mo.label+'</span>'+badge+'</div><div class="cards">'+cards+'</div>'+notes+'</div>';
+  return '<div class="month"><div class="month-head"><span class="month-title">'+mo.label+'</span>'+badge+LEGEND+'</div><div class="cards">'+cards+'</div>'+notes+'</div>';
 }).join("");
 
 document.getElementById("months").innerHTML = html;
